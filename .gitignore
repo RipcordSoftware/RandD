@@ -26,3 +26,17 @@
 *.exe
 *.out
 *.app
+
+# ignore NetBeans related stuff
+/src/*/dist/
+/src/*/build/
+**/nbproject/private/
+.dep.inc
+
+# ignore externals
+externals/**
+
+# ignore the coverage output files
+coverage.info
+*.gcda
+*.gcno
