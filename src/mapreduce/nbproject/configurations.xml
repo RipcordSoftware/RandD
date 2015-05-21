@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.h</itemPath>
+      <itemPath>../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,7 +14,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>../../externals/libscriptobject/externals/gason/src/gason.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.cpp</itemPath>
+      <itemPath>../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.cpp</itemPath>
+      <itemPath>test1.json</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -37,9 +43,77 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <incDir>
+            <pElem>../../externals/libscriptobject/src/testlibscriptobject</pElem>
+            <pElem>../../externals/libscriptobject/src/libscriptobject</pElem>
+            <pElem>../../externals/libscriptobject/externals/gason/src</pElem>
+            <pElem>../../externals/libjsapi/src/libjsapi</pElem>
+            <pElem>../../externals/libjsapi/externals/installed/include/mozjs-31</pElem>
+          </incDir>
+          <commandLine>--coverage</commandLine>
         </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../externals/libscriptobject/src/libscriptobject"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../externals/libscriptobject/src/libscriptobject"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libscriptobject.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../externals/libjsapi/src/libjsapi"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../../externals/libjsapi/src/libjsapi"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libjsapi.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibFileItem>../../externals/libjsapi/externals/installed/lib/libmozjs-31.a</linkerLibFileItem>
+            <linkerLibStdlibItem>DataCompression</linkerLibStdlibItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
+          </linkerLibItems>
+          <commandLine>--coverage</commandLine>
+        </linkerTool>
       </compileType>
+      <item path="../../externals/libscriptobject/externals/gason/src/gason.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="test1.json" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -54,6 +128,14 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
+          <incDir>
+            <pElem>../../externals/libscriptobject/src/testlibscriptobject</pElem>
+            <pElem>../../externals/libscriptobject/src/libscriptobject</pElem>
+            <pElem>../../externals/libscriptobject/externals/gason/src</pElem>
+            <pElem>../../externals/libjsapi/src/libjsapi</pElem>
+            <pElem>../../externals/libjsapi/externals/installed/include/mozjs-31</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -61,8 +143,67 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../externals/libscriptobject/src/libscriptobject"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../../externals/libscriptobject/src/libscriptobject"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libscriptobject.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../externals/libjsapi/src/libjsapi"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../../externals/libjsapi/src/libjsapi"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libjsapi.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibFileItem>../../externals/libjsapi/externals/installed/lib/libmozjs-31.a</linkerLibFileItem>
+            <linkerLibStdlibItem>DataCompression</linkerLibStdlibItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibStdlibItem>DynamicLinking</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
+      <item path="../../externals/libscriptobject/externals/gason/src/gason.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="test1.json" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/793978143/gason.o \
+	${OBJECTDIR}/_ext/882160277/script_array_json_source.o \
+	${OBJECTDIR}/_ext/882160277/script_object_json_source.o \
 	${OBJECTDIR}/main.o
 
 
@@ -42,8 +45,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=--coverage
+CXXFLAGS=--coverage
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -52,23 +55,46 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=../../externals/libscriptobject/src/libscriptobject/dist/Debug/GNU-Linux-x86/libscriptobject.a ../../externals/libjsapi/src/libjsapi/dist/Debug/GNU-Linux-x86/libjsapi.a ../../externals/libjsapi/externals/installed/lib/libmozjs-31.a -lz -lpthread -ldl
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce: ../../externals/libscriptobject/src/libscriptobject/dist/Debug/GNU-Linux-x86/libscriptobject.a
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce: ../../externals/libjsapi/src/libjsapi/dist/Debug/GNU-Linux-x86/libjsapi.a
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce: ../../externals/libjsapi/externals/installed/lib/libmozjs-31.a
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mapreduce ${OBJECTFILES} ${LDLIBSOPTIONS} --coverage
+
+${OBJECTDIR}/_ext/793978143/gason.o: ../../externals/libscriptobject/externals/gason/src/gason.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/793978143
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../externals/libscriptobject/src/testlibscriptobject -I../../externals/libscriptobject/src/libscriptobject -I../../externals/libscriptobject/externals/gason/src -I../../externals/libjsapi/src/libjsapi -I../../externals/libjsapi/externals/installed/include/mozjs-31 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/793978143/gason.o ../../externals/libscriptobject/externals/gason/src/gason.cpp
+
+${OBJECTDIR}/_ext/882160277/script_array_json_source.o: ../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/882160277
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../externals/libscriptobject/src/testlibscriptobject -I../../externals/libscriptobject/src/libscriptobject -I../../externals/libscriptobject/externals/gason/src -I../../externals/libjsapi/src/libjsapi -I../../externals/libjsapi/externals/installed/include/mozjs-31 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/882160277/script_array_json_source.o ../../externals/libscriptobject/src/testlibscriptobject/script_array_json_source.cpp
+
+${OBJECTDIR}/_ext/882160277/script_object_json_source.o: ../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/882160277
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../externals/libscriptobject/src/testlibscriptobject -I../../externals/libscriptobject/src/libscriptobject -I../../externals/libscriptobject/externals/gason/src -I../../externals/libjsapi/src/libjsapi -I../../externals/libjsapi/externals/installed/include/mozjs-31 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/882160277/script_object_json_source.o ../../externals/libscriptobject/src/testlibscriptobject/script_object_json_source.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../../externals/libscriptobject/src/testlibscriptobject -I../../externals/libscriptobject/src/libscriptobject -I../../externals/libscriptobject/externals/gason/src -I../../externals/libjsapi/src/libjsapi -I../../externals/libjsapi/externals/installed/include/mozjs-31 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../../externals/libscriptobject/src/libscriptobject && ${MAKE}  -f Makefile CONF=Debug
+	cd ../../externals/libjsapi/src/libjsapi && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -77,6 +103,8 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../../externals/libscriptobject/src/libscriptobject && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../../externals/libjsapi/src/libjsapi && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

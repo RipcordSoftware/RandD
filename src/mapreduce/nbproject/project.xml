@@ -6,9 +6,12 @@
             <name>mapreduce</name>
             <c-extensions/>
             <cpp-extensions>cpp</cpp-extensions>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../../externals/libjsapi/src/libjsapi</make-dep-project>
+                <make-dep-project>../../externals/libscriptobject/src/libscriptobject</make-dep-project>
+            </make-dep-projects>
             <sourceRootList/>
             <confList>
                 <confElem>

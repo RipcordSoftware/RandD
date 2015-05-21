@@ -1,0 +1,10 @@
+{
+ "_id": "00a271787f89c0ef2e10e88a0c0001f4",
+ "_rev": "1-2628a75ac8c3abfffc8f6e30c9949fd6",
+ "item": "apple",
+ "prices": {
+     "Fresh Mart": 1.59,
+     "Price Max": 5.99,
+     "Apples Express": 0.79
+ }
+}
