@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <chrono>
 
 #include "script_object_json_source.h"
 #include "script_array_json_source.h"
@@ -61,15 +62,15 @@ int main(int argc, char** argv) {
 
             std::cerr << "Parsing... ";
             
-            rs::scriptobject::ScriptObjectPtr scriptObj = nullptr;
+            rs::scriptobject::ScriptObjectPtr rootObj = nullptr;
             if (IsObject(json, fileLength)) {
                 ScriptObjectJsonSource source(&json[0]);
-                scriptObj = rs::scriptobject::ScriptObjectFactory::CreateObject(source);
+                rootObj = rs::scriptobject::ScriptObjectFactory::CreateObject(source);
             } /*else if (IsArray(json, fileLength)) {
                 ScriptArrayJsonSource source(&json[0]);
-                auto object = rs::scriptobject::ScriptArrayFactory::CreateArray(source);
-            }*/ else {
-                throw "Error: the input file was not recognised as JSON";
+                arrayObj = rs::scriptobject::ScriptArrayFactory::CreateArray(source);
+            } */else {
+                throw "The input file was not recognised as JSON";
             }
             
             std::cerr << "done, found: " << std::endl << 
@@ -83,6 +84,27 @@ int main(int argc, char** argv) {
             
             rs::jsapi::Runtime rt;
             
+            auto arrayObj = rootObj->getArray("rows");
+            
+            std::vector<rs::jsapi::Value> resultKeys;
+            resultKeys.reserve(4096);
+            std::vector<rs::jsapi::Value> resultValues;
+            resultValues.reserve(4096);
+            
+            rs::jsapi::Global::DefineFunction(rt, "emit", 
+                [&](const std::vector<rs::jsapi::Value>& args, rs::jsapi::Value&) {
+                    if (args.size() > 0) {
+                        resultKeys.emplace_back(args[0]);
+                        
+                        if (args.size() > 1) {
+                            resultValues.emplace_back(args[1]);
+                        } else {
+                            resultValues.emplace_back(rt);
+                        }
+                    }                                        
+                });
+            
+            rs::scriptobject::ScriptObjectPtr scriptObj = nullptr;
             rs::jsapi::Value object(rt);
             rs::jsapi::DynamicObject::Create(rt, 
                 [&](const char* name, rs::jsapi::Value& value) {
@@ -102,15 +124,32 @@ int main(int argc, char** argv) {
                     }
                 }, 
                 nullptr, nullptr, nullptr, object);
-                
+
             rs::jsapi::FunctionArguments args(rt);
-            args.Append(object);
-            args.Append("_id");
-            rs::jsapi::Value result(rt);    
-            rt.Evaluate("var myfunc = function(o, n) { return o[n]; }");
-            rt.Call("myfunc", args, result);
+            args.Append(object);            
             
-            std::cout << result << std::endl;
+            rs::jsapi::Value func(rt);
+            rt.Evaluate("(function() { return function(doc) { if (doc._rev[0] == '1') emit(doc._id, doc.title); }; })()", func);
+            
+            rs::jsapi::Value temp(rt);
+            
+            auto start = std::chrono::high_resolution_clock::now();
+            
+            for (unsigned i = 0, length = arrayObj->count; i < length; ++i) {
+                scriptObj = arrayObj->getObject(i)->getObject("doc");
+
+                func.CallFunction(args);
+            }
+            
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double, std::milli> duration = end - start;
+            
+            for (auto result : resultKeys) {
+                std::cout << result << std::endl;
+            }
+
+            std::cout << "Time: " << duration.count() << "ms" << std::endl;
+            std::cout << "Rows: " << resultKeys.size() << std::endl;
                         
             return 0;
         } catch (const char* msg) {
